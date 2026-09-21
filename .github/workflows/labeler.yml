@@ -1,0 +1,18 @@
+name: labeler
+
+# Пулл-реквест приезжает из форка, где токен события pull_request даётся только
+# на чтение, поэтому метку ставит pull_request_target. Конфиг и воркфлоу он
+# берёт из базовой ветки, так что автор пулл-реквеста на них не влияет. Чужой
+# код здесь не выполняется, ветка пулл-реквеста не выкачивается.
+on:
+  - pull_request_target
+
+jobs:
+  labeler:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/labeler@v7
